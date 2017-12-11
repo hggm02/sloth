@@ -126,6 +126,24 @@
    </attribute>
    <widget class="QWidget" name="dockPropertiesContents"/>
   </widget>
+
+
+
+
+
+  <widget class="QDockWidget" name="pencere">
+   <property name="windowTitle">
+    <string>Bizim Pencere</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="pencereContents"/>
+  </widget>
+
+
+
+  
   <widget class="QDockWidget" name="dockAnnotations">
    <property name="windowTitle">
     <string>Annotations</string>
