@@ -1,4 +1,7 @@
 #!/usr/bin/python
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+
 import logging, os
 import functools
 import fnmatch
@@ -129,6 +132,10 @@ class MainWindow(QMainWindow):
 
         img = self.labeltool.getImage(new_image)
 
+        #img2=mpimg.imread('./examples/test.jpg')
+        imgplot = plt.imshow(img)
+        plt.show()
+        
         if img == None:
             self.controls.setFilename("")
             self.selectionmodel.setCurrentIndex(new_image.index(), QItemSelectionModel.ClearAndSelect|QItemSelectionModel.Rows)
