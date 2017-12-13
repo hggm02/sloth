@@ -132,10 +132,12 @@ class MainWindow(QMainWindow):
 
         img = self.labeltool.getImage(new_image)
 
-        #img2=mpimg.imread('./examples/test.jpg')
-        imgplot = plt.imshow(img)
+        plt.ion()
+        img2=mpimg.imread('../fwdcam/fwdcam00001.jpg')
+        imgplot = plt.imshow(img2)
         plt.show()
-        
+        plt.pause(0.01)
+
         if img == None:
             self.controls.setFilename("")
             self.selectionmodel.setCurrentIndex(new_image.index(), QItemSelectionModel.ClearAndSelect|QItemSelectionModel.Rows)
@@ -239,10 +241,10 @@ class MainWindow(QMainWindow):
 
         # get inserters and items from labels
         # FIXME for handling the new-style config correctly
-        inserters = dict([(label['attributes']['class'], label['inserter']) 
+        inserters = dict([(label['attributes']['class'], label['inserter'])
                           for label in config.LABELS
                           if 'class' in label.get('attributes', {}) and 'inserter' in label])
-        items = dict([(label['attributes']['class'], label['item']) 
+        items = dict([(label['attributes']['class'], label['item'])
                       for label in config.LABELS
                       if 'class' in label.get('attributes', {}) and 'item' in label])
 
@@ -308,7 +310,7 @@ class MainWindow(QMainWindow):
         self.copyAnnotations = CopyAnnotations(self.labeltool)
         self.interpolateRange = InterpolateRange(self.labeltool)
 
-        # Show the UI.  It is important that this comes *after* the above 
+        # Show the UI.  It is important that this comes *after* the above
         # adding of custom widgets, especially the central widget.  Otherwise the
         # dock widgets would be far to large.
         self.ui.show()
@@ -404,7 +406,7 @@ class MainWindow(QMainWindow):
             path = QFileInfo(filename).path()
 
         format_str = ' '.join(self.labeltool.getAnnotationFilePatterns())
-        fname = QFileDialog.getOpenFileName(self, 
+        fname = QFileDialog.getOpenFileName(self,
                 "%s - Load Annotations" % APP_NAME, path,
                 "%s annotation files (%s)" % (APP_NAME, format_str))
         if len(str(fname)) > 0:
@@ -453,20 +455,20 @@ class MainWindow(QMainWindow):
             for pattern in image_types:
                 if fnmatch.fnmatch(fname.lower(), pattern):
                     item = self.labeltool.addImageFile(fname)
-            
+
             progress_bar.setValue(c)
 
         if item is None:
             return self.labeltool.addVideoFile(fname)
 
         progress_bar.close()
-        
+
         return item
 
     def onViewsLockedChanged(self, checked):
         features = QDockWidget.AllDockWidgetFeatures
         if checked:
-            features = QDockWidget.NoDockWidgetFeatures 
+            features = QDockWidget.NoDockWidgetFeatures
 
         self.ui.dockProperties.setFeatures(features)
         self.ui.dockAnnotations.setFeatures(features)
@@ -488,5 +490,3 @@ class MainWindow(QMainWindow):
              was developed at the CVHCI research group at KIT.
              <p>For more details, visit our homepage: <a href="%s">%s</a>"""
               % (APP_NAME, __version__, ORGANIZATION_DOMAIN, ORGANIZATION_DOMAIN))
-
-
