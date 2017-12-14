@@ -133,7 +133,7 @@ class MainWindow(QMainWindow):
         img = self.labeltool.getImage(new_image)
 
         plt.ion()
-        img2=mpimg.imread('../fwdcam/fwdcam00001.jpg')
+        img2=self.labeltool.getImage(new_image, 'fwdCam')
         imgplot = plt.imshow(img2)
         plt.show()
         plt.pause(0.01)
